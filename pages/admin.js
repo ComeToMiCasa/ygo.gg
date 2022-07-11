@@ -2,10 +2,9 @@ import {
     addDoc,
     collection,
     deleteDoc,
-    doc,
-    getDoc,
     getDocs,
     query,
+    updateDoc,
     where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
@@ -60,18 +59,31 @@ const Admin = () => {
             .then(() => setReload(!reload));
     };
 
+    const handleReject = (name) => {
+        const q = query(pendingRef, where("name", "==", name));
+        getDocs(q)
+            .then((res) =>
+                res.forEach((docSnapshot) =>
+                    deleteDoc(docSnapshot.ref)
+                        .then(() => console.log("delete success"))
+                        .catch((e) => console.error(e))
+                )
+            )
+            .then(() => setReload(!reload));
+    };
+
     const pendingList = pending.map(({ name }, index) => (
         <PendingEntry
             name={name}
             onSubmit={() => handleSubmit(name)}
+            onReject={() => handleReject(name)}
             key={index}
         />
     ));
 
     const deckList = decks.map(({ name, id }, index) => (
         <div key={index}>
-            {name}
-            {id}
+            {name} {id}
         </div>
     ));
 
@@ -84,11 +96,12 @@ const Admin = () => {
     );
 };
 
-const PendingEntry = ({ name, onSubmit }) => {
+const PendingEntry = ({ name, onSubmit, onReject }) => {
     return (
         <div>
             {name}
             <button onClick={onSubmit}>승인</button>
+            <button onClick={onReject}>거절</button>
         </div>
     );
 };

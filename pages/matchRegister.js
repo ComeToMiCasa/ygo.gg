@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import db from "../src/db";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs } from "firebase/firestore";
 import DeckSelector from "../components/deckSelector";
 import GameSelector from "../components/gameSelector";
 import MatchComment from "../components/matchComment";
+import { userContext } from "../src/context";
 
 const MatchRegister = () => {
-    const ref = collection(db, "Decks");
+    const { uid } = useContext(userContext);
+
+    const deckRef = collection(db, "Decks");
+    const matchRef = collection(db, "Matches");
+    const userRef = collection(db, "Users");
+
     const [decks, setDecks] = useState([]);
 
-    const [myDeck, setMyDeck] = useState(null);
-    const [yourDeck, setYourDeck] = useState(null);
+    const [deck1, setDeck1] = useState(null);
+    const [deck2, setDeck2] = useState(null);
 
     const [matchWin, setMatchWin] = useState(true);
     const [game1Win, setGame1Win] = useState(true);
@@ -21,8 +27,45 @@ const MatchRegister = () => {
     const [game2First, setGame2First] = useState(true);
     const [game3First, setGame3First] = useState(true);
 
-    const [isInvalid, setIsInvalid] = useState(false);
+    const [isInvalid, setIsInvalid] = useState(true);
     const [comment, setComment] = useState("");
+
+    const handleSubmit = () => {
+        if (!deck1 || !deck2) {
+            alert("덱을 선택하세요");
+            return;
+        }
+        const games = isInvalid
+            ? [
+                  { win: game1Win, first: game1First },
+                  { win: game2Win, first: game2First },
+              ]
+            : [
+                  { win: game1Win, first: game1First },
+                  { win: game2Win, first: game2First },
+                  { win: game3Win, first: game3First },
+              ];
+
+        addDoc(collection(db, "Users/" + uid + "/Matches"), {
+            deck1: doc(db, "Decks", deck1),
+            deck2: doc(db, "Decks", deck2),
+            games,
+            matchWin,
+            comment,
+        })
+            .then((docRef) => console.log(docRef.id))
+            .catch((e) => console.error(e));
+
+        setDeck1(null);
+        setDeck2(null);
+        setGame1Win(true);
+        setGame2Win(true);
+        setGame3Win(true);
+        setGame1First(true);
+        setGame2First(true);
+        setGame3First(true);
+        setComment("");
+    };
 
     useEffect(() => {
         setMatchWin(
@@ -37,7 +80,7 @@ const MatchRegister = () => {
     }, [game1Win, game2Win, game3Win]);
 
     useEffect(() => {
-        getDocs(ref).then((res) => {
+        getDocs(deckRef).then((res) => {
             setDecks(
                 res.docs.map((docSnapshot) => {
                     const data = docSnapshot.data();
@@ -68,8 +111,8 @@ const MatchRegister = () => {
             <br />
             <DeckSelector
                 decks={decks}
-                setMyDeck={setMyDeck}
-                setYourDeck={setYourDeck}
+                setDeck1={setDeck1}
+                setDeck2={setDeck2}
             />
             <br />
             <GameSelector
@@ -102,9 +145,9 @@ const MatchRegister = () => {
             <br />
             <MatchComment
                 comment={comment}
-                handleChange={(e) => setComment(e.value)}
+                handleChange={(e) => setComment(e.target.value)}
             />
-            <button>등록</button>
+            <button onClick={handleSubmit}>등록</button>
         </div>
     );
 };
