@@ -35,6 +35,10 @@ const MatchRegister = () => {
             alert("덱을 선택하세요");
             return;
         }
+        if (!uid) {
+            alert("로그인하세요");
+            return;
+        }
         const games = isInvalid
             ? [
                   { win: game1Win, first: game1First },
