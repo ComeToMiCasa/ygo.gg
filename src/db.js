@@ -1,4 +1,7 @@
 import app from "./firebase.js";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
-export default getFirestore(app);
+const db = getFirestore(app);
+
+connectFirestoreEmulator(db, "localhost", 8080);
+export default db;

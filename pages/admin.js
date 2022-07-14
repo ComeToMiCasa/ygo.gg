@@ -44,6 +44,12 @@ const Admin = () => {
     const handleSubmit = (name) => {
         addDoc(deckRef, {
             name,
+            gameTotal: 0,
+            gameWin: 0,
+            gameWinRate: 0,
+            matchTotal: 0,
+            matchWin: 0,
+            matchWinRate: 0,
         })
             .then((docRef) => console.log(docRef.id))
             .catch((e) => console.error(e));

@@ -51,8 +51,8 @@ const MatchRegister = () => {
               ];
 
         addDoc(collection(db, "Users/" + uid + "/Matches"), {
-            deck1: doc(db, "Decks", deck1),
-            deck2: doc(db, "Decks", deck2),
+            deck1: deck1,
+            deck2: deck2,
             games,
             matchWin,
             comment,
