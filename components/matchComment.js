@@ -1,15 +1,15 @@
-import React from "react";
+import React from "react"
 
 const MatchComment = ({ comment, handleChange }) => (
-    <div>
+	<div>
         [비고]
-        <br />
-        <textarea
-            style={{ width: 510, height: 150, fontSize: 16, resize: "none" }}
-            value={comment}
-            onChange={handleChange}
-        ></textarea>
-    </div>
-);
+		<br />
+		<textarea
+			style={{ width: 510, height: 150, fontSize: 16, resize: "none" }}
+			value={comment}
+			onChange={handleChange}
+		></textarea>
+	</div>
+)
 
-export default MatchComment;
+export default MatchComment
