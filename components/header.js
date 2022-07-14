@@ -12,6 +12,9 @@ const Header = () => (
         <Link to="/deck">
             <div>[Decks]</div>
         </Link>
+        <Link to="/login">
+            <div>[Login]</div>
+        </Link>
     </div>
 );
 

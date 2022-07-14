@@ -22,9 +22,6 @@ export const onMatchCreate = functions.firestore
             0
         );
 
-        functions.logger.log(myDeckData);
-        functions.logger.log(wins, losses);
-
         const newMyDeckData = {
             gameTotal: myDeckData.gameTotal + wins + losses,
             gameWin: myDeckData.gameWin + wins,

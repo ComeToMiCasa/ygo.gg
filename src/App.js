@@ -8,6 +8,7 @@ import Admin from "../pages/admin";
 import { userContext } from "./context";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "./auth";
+import Login from "../pages/login";
 
 const App = () => {
     const [username, setUsername] = useState("");
@@ -34,6 +35,7 @@ const App = () => {
                 <Route path="/match" element={<MatchRegister />} />
                 <Route path="/deck" element={<DeckRegister />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </userContext.Provider>
     );

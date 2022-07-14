@@ -1,31 +1,62 @@
-import React, { useContext } from "react";
-import { signInWithPopup, signOut } from "firebase/auth";
-import auth, { googleProvider } from "../src/auth";
-import { userContext } from "../src/context";
+import React, { useContext, useEffect, useState } from "react";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import db from "../src/db";
 
 const Home = () => {
-    const { uid } = useContext(userContext);
+    const [gameDecks, setGameDecks] = useState([]);
+    const [matchDecks, setMatchDecks] = useState([]);
 
-    const handleSignIn = () => {
-        signInWithPopup(auth, googleProvider)
-            .then((res) => {
-                const user = res.user;
-                console.log(user.uid);
-            })
-            .catch((e) => console.error(e));
-    };
+    const deckRef = collection(db, "Decks");
 
-    const handleSignOut = () => {
-        signOut(auth)
-            .then(() => console.log("sign out success"))
-            .catch((e) => console.error(e));
-    };
+    useEffect(() => {
+        const gameQuery = query(
+            deckRef,
+            orderBy("gameWinRate", "desc"),
+            limit(10)
+        );
+        const matchQuery = query(
+            deckRef,
+            orderBy("matchWinRate", "desc"),
+            limit(10)
+        );
+        Promise.all([getDocs(gameQuery), getDocs(matchQuery)]).then(
+            (querySnapshots) => {
+                const gameSnapshot = querySnapshots[0];
+                const matchSnapshot = querySnapshots[1];
+
+                setGameDecks(
+                    gameSnapshot.docs.map((docSnapshot) => ({
+                        name: docSnapshot.data().name,
+                        winRate: docSnapshot.data().gameWinRate,
+                    }))
+                );
+                setMatchDecks(
+                    matchSnapshot.docs.map((docSnapshot) => ({
+                        name: docSnapshot.data().name,
+                        winRate: docSnapshot.data().matchWinRate,
+                    }))
+                );
+            }
+        );
+    }, []);
+
+    const gameDeckList = gameDecks.map(({ name, winRate }, index) => (
+        <div key={index}>
+            {name} {winRate}
+        </div>
+    ));
+
+    const matchDeckList = matchDecks.map(({ name, winRate }, index) => (
+        <div key={index}>
+            {name} {winRate}
+        </div>
+    ));
 
     return (
         <div>
-            <button onClick={handleSignIn}>sign in with google</button>
-            <button onClick={handleSignOut}>sign out</button>
-            {uid}
+            {gameDeckList}
+            <br />
+            {matchDeckList}
         </div>
     );
 };
