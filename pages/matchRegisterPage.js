@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
 import db from "../src/db"
-import { addDoc, collection, doc, getDoc, getDocs, updateDoc } from "firebase/firestore"
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore"
 import DeckSelector from "../components/deckSelector"
 import GameSelector from "../components/gameSelector"
 import MatchComment from "../components/matchComment"
-import { userContext } from "../src/context"
+import { deckContext, userContext } from "../src/context"
 
 const MatchRegister = () => {
 	const { uid } = useContext(userContext)
-
-	const deckRef = collection(db, "Decks")
-
-	const [decks, setDecks] = useState([])
+	const { decks} = useContext(deckContext)
 
 	const [deck1, setDeck1] = useState(null)
 	const [deck2, setDeck2] = useState(null)
@@ -48,9 +45,10 @@ const MatchRegister = () => {
 				{ win: game3Win, first: game3First },
 			]
 
-		addDoc(collection(db, "Users/" + uid + "/Matches"), {
+		addDoc(collection(db, "Matches"), {
 			deck1: deck1,
 			deck2: deck2,
+			user: uid,
 			games,
 			matchWin,
 			comment,
@@ -58,8 +56,8 @@ const MatchRegister = () => {
 			.then((docRef) => console.log(docRef.id))
 			.catch((e) => console.error(e))
 
-		const myDeckDoc = doc(db, "Decks/" + deck1)
-		const yourDeckDoc = doc(db, "Decks/" + deck2)
+		const myDeckDoc = doc(db, "Decks/" + deck1.id)
+		const yourDeckDoc = doc(db, "Decks/" + deck2.id)
 
 		const myDeckData = (await getDoc(myDeckDoc)).data()
 		const yourDeckData = (await getDoc(yourDeckDoc)).data()
@@ -125,20 +123,6 @@ const MatchRegister = () => {
 	useEffect(() => {
 		setIsInvalid((game1Win && game2Win) || (!game1Win && !game2Win))
 	}, [game1Win, game2Win, game3Win])
-
-	useEffect(() => {
-		getDocs(deckRef).then((res) => {
-			setDecks(
-				res.docs.map((docSnapshot) => {
-					const data = docSnapshot.data()
-					return {
-						label: data.name,
-						value: docSnapshot.id,
-					}
-				})
-			)
-		})
-	}, [])
 
 	return (
 		<div

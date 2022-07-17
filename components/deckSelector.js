@@ -20,10 +20,11 @@ const DeckDropdown = ({ decks, name, onSelect}) => (
 		{name}
 		<Select
 			options={decks}
-			onChange={(newValue) => onSelect(newValue.value)}
+			onChange={(newValue) => onSelect({name: newValue.label, id: newValue.value})}
 			placeholder="덱 검색"
 		/>
 	</div>
 )
 
 export default DeckSelector
+ 

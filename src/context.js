@@ -6,3 +6,8 @@ export const userContext = createContext({
 	uid: null,
 	setUid: () => {},
 })
+
+export const deckContext = createContext({
+	decks: [],
+	setDecks: () => {}
+})
