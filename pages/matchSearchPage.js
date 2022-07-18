@@ -11,38 +11,66 @@ const MatchPage = () => {
 	const matchRef = collection(db, "Matches")
 
 	const handleSubmit = () => {
-		let q = query(
+		let q1 = query(
 			matchRef,
 			where("deck1", "==", myDeck), 
 			where("deck2", "==", yourDeck), 
 		)
+		let q2 = query(
+			matchRef, 
+			where("deck1", "==", yourDeck),
+			where("deck2", "==", myDeck)
+		)
 		if(!myDeck && !yourDeck) {
-			q = query(matchRef)
+			q1 = query(matchRef)
+			q2 = query(matchRef, where("deck1", "==", "null"))
 		} else if(!myDeck) {
-			q = query(
+			q1 = query(
 				matchRef,
 				where("deck2", "==", yourDeck), 
 			)
+			q2 = query(
+				matchRef,
+				where("deck1","==", yourDeck)
+			)
 		} else if(!yourDeck) {
-			q = query(
+			q1 = query(
 				matchRef,
 				where("deck1", "==", myDeck), 
 			)
+			q2 = query(
+				matchRef,
+				where("deck2", "==", myDeck), 
+			)
 		}
-		getDocs(q) 
-			.then((querySnapshot) => {
+		Promise.all([getDocs(q1), getDocs(q2)])
+			.then((querySnapshots) => {
+				const querySnapshot1 = querySnapshots[0]
+				const querySnapshot2 = querySnapshots[1]
 				setMatches(
-					querySnapshot.docs.map((docSnapshot) => {
+					querySnapshot1.docs.map((docSnapshot) => {
 						const { deck1, deck2, games, matchWin } = docSnapshot.data()
+						console.log(games)
 						return {
 							deck1, 
 							deck2, 
 							games,
 							matchWin
 						}
-					})
+					}).concat(
+						querySnapshot2.docs.map((docSnapshot) => {
+							const { deck1, deck2, games, matchWin } = docSnapshot.data()
+							return {
+								deck1: deck2, 
+								deck2: deck1, 
+								games: games.map(({win, first}) => ({win: !win, first})),
+								matchWin: !matchWin
+							}
+						})
+					)
 				)
 			})
+			.catch((e) => console.error(e))
 	}
 
 	const matchList = matches.map((matchData, index) => (
@@ -61,15 +89,35 @@ const MatchPage = () => {
 				setYourDeck={setYourDeck} 
 				onSubmit={handleSubmit}
 			/>
-			<div>
-				{matchList}
-			</div>
+			{matches.length ? (
+				<div>
+					{matchList}
+				</div>) : (
+				<div style={{
+					fontSize: 18,
+					textAlign: "center",
+					marginTop: 100
+				}}>
+					덱을 선택하고 전적을 검색하세요. 덱을 선택하지 않으면 모든 덱을 기반으로 검색합니다.
+					<br/>
+					<br/>
+					TIP) 덱을 한쪽만 선택하고 검색해보세요.
+					
+				</div>
+			)
+			}
 		</div>
 	)
 }
 
 const MatchEntry = ({deck1, deck2, games, matchWin}) => {
-	const gamesList = games.reduce((str, val) => str + (val ? "O" : "X"), "")
+	const gamesList = (
+		<div style={{
+			width: 100,
+		}}>
+			{games.reduce((str, val) => str + (val.win ? "O" : "X"), "")}
+		</div>
+	)
 
 	return (
 		<div style={{
@@ -77,8 +125,29 @@ const MatchEntry = ({deck1, deck2, games, matchWin}) => {
 			height: 50,
 			borderBottom: "solid black .5px",
 			backgroundColor: "white",
+			display: "flex",
+			justifyContent: "space-between",
+			padding: 10,
+			boxSizing: "border-box",
+			alignItems: "center",
+			boxShadow: "2px 1px 1px gray "
 		}}>
-			{deck1.name} {deck2.name} {gamesList} {matchWin ? "승" : "패"}
+			<DeckComponent {...deck1}/>
+			<DeckComponent {...deck2}/>
+			{gamesList} 
+			<div>
+				매치 <b>{matchWin ? "승" : "패"}</b>
+			</div>
+		</div>
+	)
+}
+
+const DeckComponent = ({name}) => {
+	return (
+		<div style={{
+			width: 200,
+		}}>
+			{name}
 		</div>
 	)
 }

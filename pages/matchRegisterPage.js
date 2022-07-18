@@ -5,6 +5,7 @@ import DeckSelector from "../components/deckSelector"
 import GameSelector from "../components/gameSelector"
 import MatchComment from "../components/matchComment"
 import { deckContext, userContext } from "../src/context"
+import { useNavigate } from "react-router-dom"
 
 const MatchRegister = () => {
 	const { uid } = useContext(userContext)
@@ -24,6 +25,8 @@ const MatchRegister = () => {
 
 	const [isInvalid, setIsInvalid] = useState(true)
 	const [comment, setComment] = useState("")
+
+	const navigate = useNavigate()
 
 	const handleSubmit = async () => {
 		if (!deck1 || !deck2) {
@@ -110,6 +113,8 @@ const MatchRegister = () => {
 		setGame2First(true)
 		setGame3First(true)
 		setComment("")
+
+		navigate("../match-search")
 	}
 
 	useEffect(() => {
