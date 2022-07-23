@@ -39,6 +39,8 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "dotenv": "^16.0.1",
     "firebase": "^9.9.0",
     "firebase-admin": "^11.0.0",
@@ -49,6 +51,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-select": "^5.4.0",
-    "react-select-search": "^3.0.10"
+    "react-select-search": "^3.0.10",
+    "xhr2": "^0.2.1"
   }
 }

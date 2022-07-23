@@ -12,6 +12,8 @@ import Login from "../pages/loginPage"
 import MatchPage from "../pages/matchSearchPage"
 import { collection, getDocs } from "firebase/firestore"
 import db from "./db"
+import NewPostPage from "../pages/newPostPage"
+import UploadPage from "../pages/uploadPage"
 
 const App = () => {
 	const [username, setUsername] = useState("")
@@ -58,6 +60,8 @@ const App = () => {
 					<Route path="/admin" element={<Admin />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/match-search" element={<MatchPage/>}/>
+					<Route path="/newpost" element={<NewPostPage/>}/>
+					<Route path="/upload" element={<UploadPage/>}/>
 				</Routes>
 			</deckContext.Provider>
 		</userContext.Provider>
