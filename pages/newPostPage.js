@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { CKEditor } from "@ckeditor/ckeditor5-react"
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import TitleBar from "../components/titleBar"
 import UploadAdapter from "../src/upload"
 import db from "../src/db"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection,getDocs } from "firebase/firestore"
 import { userContext } from "../src/context"
 
 const NewPostPage = () => {
@@ -20,11 +20,25 @@ const NewPostPage = () => {
 
 	const { uid } = useContext(userContext)
 
+	const [boardList, setBoardList] = useState([])
 	const [board, setBoard] = useState(null)
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 
 	const postRef = collection(db, "Posts")
+	const boardRef = collection(db, "Boards")
+
+	useEffect(() => {
+		getDocs(boardRef)
+			.then((querySnapshot) => {
+				setBoardList(
+					querySnapshot.docs.map((docSnapshot) => ({
+						id: docSnapshot.id,
+						name: docSnapshot.data().name
+					}))
+				)
+			})
+	}, [])
 
 	const handleSubmit = (() => {
 		const userPostRef = collection(db, `Users/${uid}/Posts`)
@@ -54,6 +68,7 @@ const NewPostPage = () => {
 			marginTop: 50
 		}}>
 			<TitleBar
+				boardList={boardList.map(({ id, name }) => ({ label: name, value: id }))}
 				title={title}
 				onTitleChange={(e) => setTitle(e.target.value)}
 				onBoardChange={setBoard}

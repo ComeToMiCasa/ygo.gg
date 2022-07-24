@@ -1,7 +1,7 @@
 import React from "react"
 import Select from "react-select"
 
-const TitleBar = ({title, onTitleChange, onBoardChange, onSubmit}) => {
+const TitleBar = ({boardList, title, onTitleChange, onBoardChange, onSubmit}) => {
 	const selectStyles = {
 		control: (provided) => ({
 			...provided,
@@ -16,6 +16,7 @@ const TitleBar = ({title, onTitleChange, onBoardChange, onSubmit}) => {
 			justifyContent: "space-around"
 		}}>
 			<Select
+				options={boardList}
 				placeholder="게시판"
 				styles={selectStyles}
 				onChange={(newValue) => onBoardChange(newValue)}

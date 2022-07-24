@@ -50,7 +50,7 @@ function Home() {
 			width: 1300, 
 			marginLeft: "auto",
 			marginRight: "auto",
-			marginTop: 150,
+			marginTop: "5%",
 			justifyContent: "space-between",
 		}}>
 			<div style={{
@@ -60,7 +60,6 @@ function Home() {
 				justifyContent: "space-around",
 				alignItems: "center"
 			}}>
-				{/* <SearchBar /> */}
 				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
 			</div>
 			

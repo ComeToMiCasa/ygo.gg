@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 
 const MatchRegister = () => {
 	const { uid } = useContext(userContext)
-	const { decks} = useContext(deckContext)
+	const { decks } = useContext(deckContext)
 
 	const [deck1, setDeck1] = useState(null)
 	const [deck2, setDeck2] = useState(null)
