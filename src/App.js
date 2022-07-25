@@ -5,7 +5,7 @@ import MatchRegister from "../pages/matchRegisterPage"
 import { Route, Routes } from "react-router-dom"
 import Header from "../components/header"
 import Admin from "../pages/admin"
-import { userContext, deckContext } from "./context"
+import { userContext, deckContext, boardContext } from "./context"
 import { onAuthStateChanged } from "firebase/auth"
 import auth from "./auth"
 import Login from "../pages/loginPage"
@@ -13,14 +13,16 @@ import MatchPage from "../pages/matchSearchPage"
 import { collection, getDocs } from "firebase/firestore"
 import db from "./db"
 import NewPostPage from "../pages/newPostPage"
-import UploadPage from "../pages/uploadPage"
+import BoardPage from "../pages/boardPage"
 
 const App = () => {
 	const [username, setUsername] = useState("")
 	const [uid, setUid] = useState("")
 	const [decks, setDecks] = useState([])
+	const [boards, setBoards] = useState([])
 
 	const deckRef = collection(db, "Decks")
+	const boardRef = collection(db, "Boards")
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,20 +51,36 @@ const App = () => {
 		})
 	}, [])
 
+	useEffect(() => {
+		getDocs(boardRef).then((res) => {
+			setBoards(
+				res.docs.map((docSnapshot) => {
+					const data = docSnapshot.data()
+					return {
+						name: data.name,
+						id: docSnapshot.id,
+					}
+				})
+			)
+		})
+	}, [])
+
 	return (
 		<userContext.Provider value={{ username, setUsername, uid, setUid }}>
 			<deckContext.Provider value={{decks, setDecks}}>
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/match" element={<MatchRegister />} />
-					<Route path="/deck" element={<DeckRegister />} />
-					<Route path="/admin" element={<Admin />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/match-search" element={<MatchPage/>}/>
-					<Route path="/newpost" element={<NewPostPage/>}/>
-					<Route path="/upload" element={<UploadPage/>}/>
-				</Routes>
+				<boardContext.Provider value={{boards, setBoards}}>
+					<Header />
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/match" element={<MatchRegister />} />
+						<Route path="/deck" element={<DeckRegister />} />
+						<Route path="/admin" element={<Admin />} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/match-search" element={<MatchPage/>}/>
+						<Route path="/newpost" element={<NewPostPage/>}/>
+						<Route path="/board" element={<BoardPage/>}/>
+					</Routes>
+				</boardContext.Provider>
 			</deckContext.Provider>
 		</userContext.Provider>
 	)

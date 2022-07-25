@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState } from "react"
 import { CKEditor } from "@ckeditor/ckeditor5-react"
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import TitleBar from "../components/titleBar"
 import UploadAdapter from "../src/upload"
 import db from "../src/db"
-import { addDoc, collection,getDocs } from "firebase/firestore"
-import { userContext } from "../src/context"
+import { addDoc, collection } from "firebase/firestore"
+import { boardContext, userContext } from "../src/context"
+import { useNavigate } from "react-router-dom"
 
 const NewPostPage = () => {
 	const editorConfig ={
@@ -19,29 +20,27 @@ const NewPostPage = () => {
 	}
 
 	const { uid } = useContext(userContext)
+	const { boards } = useContext(boardContext)
 
-	const [boardList, setBoardList] = useState([])
 	const [board, setBoard] = useState(null)
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 
-	const postRef = collection(db, "Posts")
-	const boardRef = collection(db, "Boards")
-
-	useEffect(() => {
-		getDocs(boardRef)
-			.then((querySnapshot) => {
-				setBoardList(
-					querySnapshot.docs.map((docSnapshot) => ({
-						id: docSnapshot.id,
-						name: docSnapshot.data().name
-					}))
-				)
-			})
-	}, [])
+	const navigate = useNavigate()
 
 	const handleSubmit = (() => {
+		if(!board) {
+			alert("게시판을 선택해주세요")
+			return 
+		} else if(title === "") {
+			alert("제목을 입력해주세요")
+			return 
+		} else if(!content) {
+			alert("본문을 입력해주세요")
+			return 
+		}
 		const userPostRef = collection(db, `Users/${uid}/Posts`)
+		const postRef = collection(db, `Boards/${board.value}/Posts`)
 		addDoc(postRef, {
 			board,
 			title,
@@ -56,6 +55,7 @@ const NewPostPage = () => {
 		setBoard(null)
 		setTitle("")
 		setContent("")
+		navigate("../board")
 	})
 	
 
@@ -68,7 +68,7 @@ const NewPostPage = () => {
 			marginTop: 50
 		}}>
 			<TitleBar
-				boardList={boardList.map(({ id, name }) => ({ label: name, value: id }))}
+				boardList={boards.map(({ id, name }) => ({ label: name, value: id }))}
 				title={title}
 				onTitleChange={(e) => setTitle(e.target.value)}
 				onBoardChange={setBoard}

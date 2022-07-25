@@ -11,3 +11,8 @@ export const deckContext = createContext({
 	decks: [],
 	setDecks: () => {}
 })
+
+export const boardContext = createContext({
+	boards: [],
+	setBoards: () => {}
+})
