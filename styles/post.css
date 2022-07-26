@@ -1,0 +1,25 @@
+.PostLegend {
+    height: 30px;
+    border-bottom: .5px gray solid;
+    background-color: rgb(240, 237, 204);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 10fr 1.5fr 1.5fr;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.PostEntry {
+    height: 30px;
+    border-bottom: .5px gray solid;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 10fr 1.5fr 1.5fr;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.PostEntryComponent {
+    display: flex;
+    align-items: center;
+}

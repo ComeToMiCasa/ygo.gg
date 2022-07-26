@@ -4,7 +4,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import TitleBar from "../components/titleBar"
 import UploadAdapter from "../src/upload"
 import db from "../src/db"
-import { addDoc, collection } from "firebase/firestore"
+import { addDoc, collection, Timestamp } from "firebase/firestore"
 import { boardContext, userContext } from "../src/context"
 import { useNavigate } from "react-router-dom"
 
@@ -19,7 +19,7 @@ const NewPostPage = () => {
 		}
 	}
 
-	const { uid } = useContext(userContext)
+	const { uid, username } = useContext(userContext)
 	const { boards } = useContext(boardContext)
 
 	const [board, setBoard] = useState(null)
@@ -39,13 +39,14 @@ const NewPostPage = () => {
 			alert("본문을 입력해주세요")
 			return 
 		}
-		const userPostRef = collection(db, `Users/${uid}/Posts`)
+		const userPostRef = collection(db, `Users/${uid}/MyPosts`)
 		const postRef = collection(db, `Boards/${board.value}/Posts`)
 		addDoc(postRef, {
 			board,
 			title,
 			content,
-			user: uid
+			user: { uid, username },
+			timeStamp: Timestamp.now()
 		})
 			.then((docRef) => (docRef.id))
 			.then((id) => (addDoc(userPostRef, { id })))

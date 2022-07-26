@@ -14,20 +14,32 @@ const BoardPage = () => {
 			getDocs(query(collectionGroup(db, "Posts")))
 				.then((querySnapshot) => {
 					setPosts(
-						querySnapshot.docs.map((docSnapshot) => ({
-							id: docSnapshot.id,
-							title: docSnapshot.data().title
-						}))
+						querySnapshot.docs.map((docSnapshot) => {
+							const { user, title, board, timeStamp } = docSnapshot.data()
+							return {
+								id: docSnapshot.id,
+								timeStamp: timeStamp.toDate(),
+								board,
+								title,
+								user,
+							}
+						})
 					)
 				})
 		} else {
 			getDocs(collection(db, `Boards/${board.id}/Posts`))
 				.then((querySnapshot) => {
 					setPosts(
-						querySnapshot.docs.map((docSnapshot) => ({
-							id: docSnapshot.id,
-							title: docSnapshot.data().title
-						}))
+						querySnapshot.docs.map((docSnapshot) => {
+							const { user, title, board, timeStamp } = docSnapshot.data()
+							return {
+								id: docSnapshot.id,
+								timeStamp: timeStamp.toDate(),
+								board,
+								title,
+								user,
+							}
+						})
 					)
 				})
 		}
@@ -35,7 +47,7 @@ const BoardPage = () => {
 
 	
 	return (
-		<PostContainer boards={boards} onBoardSelect={setBoard} posts={posts}/>
+		<PostContainer selectedBoard={board} boards={boards} onBoardSelect={setBoard} posts={posts}/>
 	)
 }
 
