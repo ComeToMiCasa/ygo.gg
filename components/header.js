@@ -17,15 +17,18 @@ const Header = () => (
 			<img src={logo} />
 		</Link>
 
-		<Link to="/login">
+		<Link to="/login" style={{
+			textDecoration: "none",
+			color: "rgb(2, 52, 63)"
+		}}>
 			<div style={{
-				backgroundColor: "white",
 				width: 70,
 				height: 30,
 				borderRadius: 15,
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
+				backgroundColor: "white",
 			}}>
 				로그인
 			</div>

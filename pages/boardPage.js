@@ -1,4 +1,4 @@
-import { collection, collectionGroup, getDocs, query } from "firebase/firestore"
+import { collection, collectionGroup, getDocs, orderBy, query } from "firebase/firestore"
 import React, { useContext, useEffect, useState } from "react"
 import PostContainer from "../components/postContainer"
 import { boardContext } from "../src/context"
@@ -11,7 +11,7 @@ const BoardPage = () => {
 
 	useEffect(() => {
 		if(!board) {
-			getDocs(query(collectionGroup(db, "Posts")))
+			getDocs(query(collectionGroup(db, "Posts"), orderBy("timeStamp", "desc")))
 				.then((querySnapshot) => {
 					setPosts(
 						querySnapshot.docs.map((docSnapshot) => {
@@ -27,7 +27,7 @@ const BoardPage = () => {
 					)
 				})
 		} else {
-			getDocs(collection(db, `Boards/${board.id}/Posts`))
+			getDocs(query(collection(db, `Boards/${board.id}/Posts`), orderBy("timeStamp", "desc")))
 				.then((querySnapshot) => {
 					setPosts(
 						querySnapshot.docs.map((docSnapshot) => {

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { CKEditor } from "@ckeditor/ckeditor5-react"
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document"
 import TitleBar from "../components/titleBar"
 import UploadAdapter from "../src/upload"
 import db from "../src/db"
@@ -16,7 +16,7 @@ const NewPostPage = () => {
 				{ model: "heading1", view: "h2", title: "소제목 1", class: "ck-heading_heading1" },
 				{ model: "heading2", view: "h3", title: "소제목 2", class: "ck-heading_heading2" }
 			]
-		}
+		},
 	}
 
 	const { uid, username } = useContext(userContext)
@@ -76,11 +76,15 @@ const NewPostPage = () => {
 				onSubmit={handleSubmit}
 			/>
 			<CKEditor
-				editor={ClassicEditor}
+				editor={DecoupledEditor}
 				config={editorConfig}
 				onReady={(editor) => {
 					editor.plugins.get("FileRepository").createUploadAdapter = (
 						(loader) => (new UploadAdapter(loader))
+					)
+					editor.ui.getEditableElement().parentElement.insertBefore(
+						editor.ui.view.toolbar.element,
+						editor.ui.getEditableElement()
 					)
 				}}
 				onChange={(_, editor) => setContent(editor.getData())}

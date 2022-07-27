@@ -1,11 +1,19 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import { processDate } from "../utils"
 import "../styles/post.css"
 
-const PostEntry = ({ title, board, user, timeStamp }) => {
+const PostEntry = ({ id, title, board, user, timeStamp }) => {
+	const navigate = useNavigate()
+
+	const handleClick = () => {
+		navigate("../post", { state: { id, board } })
+	}
+
 	return (
 		<div 
 			className="PostEntry"
+			onClick={handleClick}
 		> 
 			<div className="PostEntryComponent">
 				{board.label}
