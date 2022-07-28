@@ -1,0 +1,31 @@
+.HotPostContainer {
+    width: 600px;
+    height: 600px;
+    background-color: white;
+    box-shadow: 2px 2px 2px gray;
+    display: flex;
+    flex-direction: column;
+}
+
+.HotPostTitleBar {
+    height: 40px;
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
+    background-color: #F0EDCC;
+    font-size: 18px;
+    color: black;
+}
+
+.HotPostTitle {
+    grid-column: 2 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Arrow {
+    grid-column: 3 / 4;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore"
 import db from "../src/db"
 import DeckRanking from "../components/deckRanking"
+import HotPostContainer from "../components/hotPostContainer"
 
 function Home() {
 	// eslint-disable-next-line no-unused-vars
@@ -62,7 +63,7 @@ function Home() {
 			}}>
 				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
 			</div>
-			
+			<HotPostContainer/>
 		</div>
 	)
 }

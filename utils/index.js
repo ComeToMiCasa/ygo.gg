@@ -11,6 +11,6 @@ export const processDate = (timeStamp) => {
 	if(todayYear === year && todayMonth === month && todayDate === date) {
 		return timeStamp.toLocaleTimeString()
 	} else {
-		return `${todayYear / 100}.${todayMonth}.${todayDate}`
+		return `${year}.${month + 1}.${date}`
 	}
 }
