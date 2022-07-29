@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify"
 import { doc, getDoc } from "firebase/firestore"
 import React, { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import db from "../src/db"
 import "../styles/post.css"
 
@@ -21,11 +21,17 @@ const PostPage = () => {
 		console.log(data)
 	}, [data])
 
+	const navigate = useNavigate()
+
+	const handleBoardClick = () => {
+		navigate("../Board", { state: { boardParam: { id: board.value, name: board.label } } })
+	}
+
 	const { title, content, timeStamp, user } = data || {}
 
 	return (
 		<div className="PostContainer">
-			<div className="PostBoardContainer">
+			<div className="PostBoardContainer" onClick={handleBoardClick}>
 				{board.label + "게시판"}
 			</div>
 			<div className="PostTitleBar">

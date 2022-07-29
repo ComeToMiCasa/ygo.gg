@@ -1,5 +1,6 @@
 import { collection, collectionGroup, getDocs, orderBy, query } from "firebase/firestore"
 import React, { useContext, useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import PostContainer from "../components/postContainer"
 import { boardContext } from "../src/context"
 import db from "../src/db"
@@ -8,6 +9,11 @@ const BoardPage = () => {
 	const { boards } = useContext(boardContext)
 	const [board, setBoard] = useState(null)
 	const [posts, setPosts] = useState([])
+
+	const { state } = useLocation()
+	const boardParam = state?.boardParam
+
+	useEffect(() => {setBoard(boardParam)}, [])
 
 	useEffect(() => {
 		if(!board) {
