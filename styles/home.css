@@ -71,3 +71,14 @@
 .MatchRegisterButton:hover {
     border: 2px rgb(2, 52, 63) solid;
 }
+
+.LoginButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    cursor: pointer;
+}

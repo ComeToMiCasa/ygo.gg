@@ -1,16 +1,20 @@
-import React, { useContext } from "react"
+import React from "react"
 import { signInWithPopup, signOut } from "firebase/auth"
 import auth, { googleProvider } from "../src/auth"
-import { userContext } from "../src/context"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
-	const { uid } = useContext(userContext)
+
+	const navigate = useNavigate()
 
 	const handleSignIn = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((res) => {
 				const user = res.user
 				console.log(user.uid)
+			})
+			.then(() => {
+				navigate(-1)
 			})
 			.catch((e) => console.error(e))
 	}
@@ -25,7 +29,6 @@ const Login = () => {
 		<div>
 			<button onClick={handleSignIn}>sign in with google</button>
 			<button onClick={handleSignOut}>sign out</button>
-			{uid}
 		</div>
 	)
 }
