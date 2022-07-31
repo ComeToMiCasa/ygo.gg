@@ -1,6 +1,7 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import arrow from "../public/images/right-arrow.png"
+import "../styles/home.css"
 
 const DeckRanking = ({name, decks}) => {
 
@@ -8,10 +9,12 @@ const DeckRanking = ({name, decks}) => {
 		<DeckEntry {...deckInfo} key={index}/>
 	)
 
+	const navigate = useNavigate()
+
 	return (
 		<div style={{
 			width: 500, 
-			height: 500,
+			height: 600,
 			backgroundColor: "white",
 			display: "flex",
 			flexDirection: "column",
@@ -46,6 +49,18 @@ const DeckRanking = ({name, decks}) => {
 				</div>
 			</div>
 			{deckEntryList}
+			<div className="MatchRegisterButtonContainer">
+				<div 
+					className="MatchRegisterButton"
+					onClick={() => {
+						navigate("/match")
+					}}
+				>
+					<div>
+						전적 등록하기
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

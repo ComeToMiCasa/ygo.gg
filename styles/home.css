@@ -38,7 +38,7 @@
     padding-left: 10px;
     padding-right: 10px;
     font-family: 'Nanum Gothic';
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -46,4 +46,28 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.MatchRegisterButtonContainer {
+    height: 100px;
+    border-top: solid .5px gray;
+    display: flex;
+    align-items: center;
+}
+
+.MatchRegisterButton {
+    height: 50px;
+    width: 350px;
+    border: 1px solid black;
+    margin: auto;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.MatchRegisterButton:hover {
+    border: 2px rgb(2, 52, 63) solid;
 }
