@@ -6,7 +6,6 @@ import UploadAdapter from "../src/upload"
 import db from "../src/db"
 import { addDoc, collection, Timestamp } from "firebase/firestore"
 import { boardContext, userContext } from "../src/context"
-import { useNavigate } from "react-router-dom"
 
 const NewPostPage = () => {
 	const editorConfig ={
@@ -25,8 +24,6 @@ const NewPostPage = () => {
 	const [board, setBoard] = useState(null)
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
-
-	const navigate = useNavigate()
 
 	const handleSubmit = (() => {
 		if(!board) {
@@ -52,11 +49,6 @@ const NewPostPage = () => {
 			.then((id) => (addDoc(userPostRef, { id })))
 			.then((docRef) => console.log(docRef.id))
 			.catch((e) => console.log(e))
-		
-		setBoard(null)
-		setTitle("")
-		setContent("")
-		navigate("../board")
 	})
 	
 

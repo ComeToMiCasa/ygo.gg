@@ -51,7 +51,7 @@ function Home() {
 			width: 1300, 
 			marginLeft: "auto",
 			marginRight: "auto",
-			marginTop: "2%",
+			marginTop: "5%",
 			justifyContent: "space-between",
 		}}>
 			<div style={{
