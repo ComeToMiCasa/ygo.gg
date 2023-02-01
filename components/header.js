@@ -28,10 +28,10 @@ const Header = () => {
                     YGO.GG
 				</div>
 			</Link>
-			<HeaderButton name="전적 검색" pos={8}/>
-			<HeaderButton name="전적 등록" pos={9}/>
-			<HeaderButton name="승률 통계" pos={10}/>
-			<HeaderButton name="티어 분석" pos={11}/>
+			<HeaderButton name="전적 검색" pos={8} link="/match-search"/>
+			<HeaderButton name="전적 등록" pos={9} link="/match"/>
+			<HeaderButton name="승률 통계" pos={10} link="/preparing"/>
+			<HeaderButton name="티어 분석" pos={11} link="/preparing"/>
 			<div className="LoginButtonContainer">
 				{uid ? 
 					(<div 
@@ -55,11 +55,13 @@ const Header = () => {
 	)
 }
 
-const HeaderButton = ({ name, pos }) => {
+const HeaderButton = ({ name, pos, link }) => {
 
 	return (
 		<div className="HeaderButtonContainer" style={{gridColumnStart: pos, gridColumnEnd: pos + 1}}>
-			{name}
+			<Link to={link}>
+				{name}
+			</Link>
 		</div>
 	)
 }

@@ -79,7 +79,7 @@ a {
 
 .HomeButtonContainer {
     margin-top: 70px;
-    margin-left: 75px;
+    margin-left: 95px;
 }
 
 .HomeButton {
@@ -104,4 +104,11 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 5px;
+}
+
+.RankingContainer {
+    position: absolute;
+    right: 100px;
+    top: 100px;
 }

@@ -4,9 +4,10 @@
 	box-sizing: border-box;
 	display: grid;
     grid-template-columns: repeat(12, 1fr);
-    padding-left: 80px;
-    padding-right: 80px;
+    padding-left: 100px;
+    padding-right: 100px;
     padding-top: 15px;
+    grid-gap: 30px;
 }
 
 .LoginButtonContainer {
@@ -14,16 +15,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #2F5DFF;
+    border-radius: 15px;
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .LoginButton {
-    width: 80px;
-    height: 30px;
-    border-radius: 15px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #2F5DFF;
     color: white;
     cursor: pointer;
 }

@@ -51,11 +51,18 @@ function Home() {
 		<div>
 			<div className="HomeButtonContainer">
 				<HomeButton name="전적 검색" link="/match-search"/>
-				<HomeButton name="승률 통계" link="/match"/>
-				<HomeButton name="티어 분석" link="/match"/>
-				<div className="StartButton">
+				<HomeButton name="승률 통계" link="/preparing"/>
+				<HomeButton name="티어 분석" link="/preparing"/>
+				<div style={{width: 220}}>
+					<Link to="/match">
+						<div className="StartButton">
                     지금 시작하기
+						</div>
+					</Link>
 				</div>
+			</div>
+			<div className="RankingContainer">
+				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
 			</div>
 		</div>
 	)
