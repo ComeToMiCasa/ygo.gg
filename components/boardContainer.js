@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const BoardContainer = ({ selectedBoard, boards, onBoardSelect }) => {
     
@@ -6,15 +7,28 @@ const BoardContainer = ({ selectedBoard, boards, onBoardSelect }) => {
 		<BoardEntry id={id} name={name} onSelect={onBoardSelect} isSelected={selectedBoard && selectedBoard.id == id} key={id}/>
 	))
 
+	const navigate = useNavigate()
+
 	return (
 		<div style={{
 			display: "flex",
 			flexDirection: "row",
 			// backgroundColor: "rgb(240, 237, 204)",
 			borderBottom: "solid 3px rgb(2, 52, 63)",
-			padding: 10
+			padding: 10,
+			justifyContent: "space-between"
 		}}>
-			{boardList}
+			<div style={{
+				display: "flex",
+				flexDirection: "row"
+			}}>
+				{boardList}
+			</div>
+			<div
+				onClick={()=>navigate("../newpost")}
+			>
+				글쓰기
+			</div>
 		</div>
 	)
 }

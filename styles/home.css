@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .HotPostContainer {
     width: 600px;
     height: 640px;
@@ -72,13 +77,31 @@
     border: 2px rgb(2, 52, 63) solid;
 }
 
-.LoginButton {
-    width: 80px;
-    height: 30px;
-    border-radius: 15px;
+.HomeButtonContainer {
+    margin-top: 70px;
+    margin-left: 75px;
+}
+
+.HomeButton {
+    /* position: relative;
+    left: 75px; */
+    font-weight: 800;
+    font-size: 80px;
+    font-family: 'Nanum Gothic', sans-serif;
+    line-height: 100px;
+    letter-spacing: -0.05em;
+}
+
+.StartButton {
+    background-color: #2F5DFF;
+    width: 220px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 40px;
+    font-size: 25px;
+    font-weight: 700;
+    color: white;
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: white;
-    cursor: pointer;
+    align-items: center;
 }

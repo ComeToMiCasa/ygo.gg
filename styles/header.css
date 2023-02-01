@@ -1,0 +1,43 @@
+.Header {
+    width:"100%";
+	padding: 10;
+	box-sizing: border-box;
+	display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 15px;
+}
+
+.LoginButtonContainer {
+    grid-column: 12 / 13;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.LoginButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2F5DFF;
+    color: white;
+    cursor: pointer;
+}
+
+.HeaderButtonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Logo {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 35px;
+    letter-spacing: -0.02em;
+    grid-column: 1 / 3;
+}
+

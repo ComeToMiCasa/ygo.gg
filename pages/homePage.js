@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore"
+import { Link } from "react-router-dom"
 import db from "../src/db"
 import DeckRanking from "../components/deckRanking"
 import HotPostContainer from "../components/hotPostContainer"
+import "../styles/home.css"
 
 function Home() {
 	// eslint-disable-next-line no-unused-vars
@@ -46,24 +48,26 @@ function Home() {
 	}, [])
 
 	return (
-		<div style={{
-			display: "flex", 
-			width: 1300, 
-			marginLeft: "auto",
-			marginRight: "auto",
-			marginTop: "2%",
-			justifyContent: "space-between",
-		}}>
-			<div style={{
-				height: 650,
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "space-around",
-				alignItems: "center"
-			}}>
-				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
+		<div>
+			<div className="HomeButtonContainer">
+				<HomeButton name="전적 검색" link="/match-search"/>
+				<HomeButton name="승률 통계" link="/match"/>
+				<HomeButton name="티어 분석" link="/match"/>
+				<div className="StartButton">
+                    지금 시작하기
+				</div>
 			</div>
-			<HotPostContainer/>
+		</div>
+	)
+}
+
+const HomeButton = ({ name, link }) => {
+
+	return (
+		<div className="HomeButton">
+			<Link to={link}>
+				{name}
+			</Link>
 		</div>
 	)
 }
