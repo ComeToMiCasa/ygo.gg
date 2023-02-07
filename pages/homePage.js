@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore"
 import { Link } from "react-router-dom"
 import db from "../src/db"
-import DeckRanking from "../components/deckRanking"
-import HotPostContainer from "../components/hotPostContainer"
+import DeckRanking from "../components/deckRanking2"
+// import HotPostContainer from "../components/hotPostContainer"
 import "../styles/home.css"
+import DeckRankingContainer from "../components/deckRankingContainer"
 
 function Home() {
 	// eslint-disable-next-line no-unused-vars
@@ -22,7 +23,7 @@ function Home() {
 		const matchQuery = query(
 			deckRef,
 			orderBy("matchWinRate", "desc"),
-			limit(10)
+			limit(7)
 		)
 		Promise.all([getDocs(gameQuery), getDocs(matchQuery)])
 			.then(
@@ -47,6 +48,12 @@ function Home() {
 			.catch((e) => console.error(e))
 	}, [])
 
+	const [selected, setSelected] = useState(0)
+
+	const onSelect = () => {
+		setSelected(1 - selected)
+	}
+
 	return (
 		<div>
 			<div className="HomeButtonContainer">
@@ -56,14 +63,12 @@ function Home() {
 				<div style={{width: 220}}>
 					<Link to="/match">
 						<div className="StartButton">
-                    지금 시작하기
+                    전적 등록하기
 						</div>
 					</Link>
 				</div>
 			</div>
-			<div className="RankingContainer">
-				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
-			</div>
+			<DeckRankingContainer decks={matchDecks}/>
 		</div>
 	)
 }

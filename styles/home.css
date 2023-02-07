@@ -79,7 +79,7 @@ a {
 
 .HomeButtonContainer {
     margin-top: 70px;
-    margin-left: 95px;
+    margin-left: 100px;
 }
 
 .HomeButton {
@@ -107,8 +107,93 @@ a {
     margin-left: 5px;
 }
 
-.RankingContainer {
+.DeckRankingContainer {
     position: absolute;
     right: 100px;
-    top: 100px;
+    top: 90px;
+    /* border: 1px black solid; */
+    padding: 30px;
+}
+
+.DeckEntry {
+    background-color: #d9d9d9;
+    width: 500px;
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+        
+    background: #FFFFFF;
+    border: 0.5px solid rgba(70, 70, 70, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.SelectorEntryContainer 
+{
+    display: flex;
+    margin-top: 20px;
+    padding-right: 3px;
+    position: relative;
+    flex-direction: row-reverse;
+}
+
+.SelectorEntryLeft
+{
+    /* margin-left: -.5px; */
+    width: 100px;
+    height: 30px;
+    z-index: 0;
+    border: 1px #858585 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.SelectorEntryLeft:hover, .SelectorEntryRight:hover
+{
+    cursor: pointer;
+}
+
+.SelectorEntryRight
+{
+    /* margin-left: -.5px; */
+    width: 100px;
+    height: 30px;
+    z-index: 0;
+    border: 1px #858585 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.SelectorSelectorLeft
+{
+    width: 100px;
+    height: 30px;
+    position: relative;
+    right: -102px;
+    bottom: 1px;
+    border: 2px solid #2F5DFF;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.SelectorSelectorRight
+{
+    width: 100px;
+    height: 30px;
+    position: relative;
+    right: -204px;
+    bottom: 1px;
+    border: 2px solid #2F5DFF;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
