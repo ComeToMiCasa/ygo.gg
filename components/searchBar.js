@@ -3,6 +3,7 @@ import Select from "react-select"
 import { deckContext } from "../src/context"
 import arrow from "../public/images/right-arrow.png"
 import { Link } from "react-router-dom"
+import "../styles/match.css"
 
 const SearchBar = ({setMyDeck, setYourDeck, onSubmit}) => {
 	const {decks} = useContext(deckContext)
@@ -20,16 +21,7 @@ const SearchBar = ({setMyDeck, setYourDeck, onSubmit}) => {
 	}
 
 	return (
-		<div style={{
-			width: 900,
-			height: 40,
-			backgroundColor: "white",
-			boxShadow: "2px 2px 2px gray",
-			display: "flex",
-			justifyContent: "space-between",
-			alignItems: "center",
-			marginBottom: 50
-		}}>
+		<div className="SearchBar">
 			<div
 				style={{
 					display: "flex",

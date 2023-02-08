@@ -25,7 +25,7 @@ const Selector = ({ names, selected, onSelect }) => {
 		>
 			<div 
 				className="SelectorEntryRight"
-				onClick={onSelect}
+				// onClick={onSelect}
 				style={{
 					fontWeight: selected ? "bold" : "normal",
 					color: selected ? "#2F5DFF" : "black"

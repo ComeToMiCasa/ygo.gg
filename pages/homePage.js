@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore"
 import { Link } from "react-router-dom"
 import db from "../src/db"
-import DeckRanking from "../components/deckRanking2"
-// import HotPostContainer from "../components/hotPostContainer"
 import "../styles/home.css"
 import DeckRankingContainer from "../components/deckRankingContainer"
 
@@ -47,12 +45,6 @@ function Home() {
 			)
 			.catch((e) => console.error(e))
 	}, [])
-
-	const [selected, setSelected] = useState(0)
-
-	const onSelect = () => {
-		setSelected(1 - selected)
-	}
 
 	return (
 		<div>
