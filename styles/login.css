@@ -1,0 +1,54 @@
+.LoginContainer {
+    width: 500px;
+    height: 400px;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.SocialLoginButton {
+    width: 350px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-family: 'Nanum Gothic';
+    margin-bottom: 20px;
+}
+
+.SocialLoginButton:hover {
+    cursor: pointer;
+}
+
+#Google {
+    background-color: #F7F7F7;
+    color: black;
+}
+
+#Twitter {
+    background-color: #00AAEC;
+    color: white;
+}
+
+.SocialLogo {
+    transform: scale(.7);
+    /* background-color: magenta; */
+    margin-left: 5px;
+}
+
+.SocialText {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: blue; */
+    margin-right: 75px;
+}

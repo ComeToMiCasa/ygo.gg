@@ -78,18 +78,18 @@ a {
 }
 
 .HomeButtonContainer {
-    margin-top: 70px;
-    margin-left: 100px;
+    margin-top: 100px;
+    margin-left: 120px;
 }
 
 .HomeButton {
     /* position: relative;
     left: 75px; */
     font-weight: 800;
-    font-size: 80px;
+    font-size: 100px;
     font-family: 'Nanum Gothic', sans-serif;
-    line-height: 100px;
-    letter-spacing: -0.05em;
+    line-height: 120px;
+    letter-spacing: -0.03em;
 }
 
 .StartButton {
@@ -109,15 +109,15 @@ a {
 
 .DeckRankingContainer {
     position: absolute;
-    right: 100px;
+    right: 120px;
     top: 100px;
     /* border: 1px black solid; */
-    padding-top: 30px;
+    padding-top: 90px;
 }
 
 .DeckEntry {
     background-color: #d9d9d9;
-    width: 500px;
+    width: 625px;
     height: 50px;
     margin-bottom: 15px;
     border-radius: 25px;
@@ -152,6 +152,7 @@ a {
     justify-content: center;
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
+    background-color: white;
 }
 
 .SelectorEntryLeft:hover {
@@ -173,6 +174,7 @@ a {
     justify-content: center;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
+    background-color: white;
 }
 
 .SelectorSelectorLeft {

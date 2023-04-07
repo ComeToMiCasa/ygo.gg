@@ -21,7 +21,7 @@ function Home() {
 		const matchQuery = query(
 			deckRef,
 			orderBy("matchWinRate", "desc"),
-			limit(7)
+			limit(8)
 		)
 		Promise.all([getDocs(gameQuery), getDocs(matchQuery)])
 			.then(
@@ -49,9 +49,10 @@ function Home() {
 	return (
 		<div>
 			<div className="HomeButtonContainer">
-				<HomeButton name="전적 검색" link="/match-search"/>
+				{/* <HomeButton name="전적 검색" link="/match-search"/> */}
 				<HomeButton name="승률 통계" link="/preparing"/>
 				<HomeButton name="티어 분석" link="/preparing"/>
+				<HomeButton name="강의 노트" link="/preparing"/>
 				<div style={{width: 220}}>
 					<Link to="/match">
 						<div className="StartButton">
