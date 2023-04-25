@@ -13,7 +13,7 @@ import MatchPage from "../pages/matchSearchPage"
 import { collection, getDocs } from "firebase/firestore"
 import db from "./db"
 import NewPostPage from "../pages/newPostPage"
-import BoardPage from "../pages/boardPage"
+import BoardPage from "../pages/boardPage2"
 import PostPage from "../pages/postPage"
 import PreparePage from "../pages/preparePage"
 
