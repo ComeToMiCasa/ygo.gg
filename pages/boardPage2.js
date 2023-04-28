@@ -6,68 +6,36 @@ import { boardContext } from "../src/context"
 import db from "../src/db"
 import { limit } from "firebase/firestore"
 import "../styles/board.css"
+import usePostFetch from "../hooks/usePostFetch"
 
 const BoardPage = () => {
 	const { boards } = useContext(boardContext)
 	const [board, setBoard] = useState(null)
-	const [posts, setPosts] = useState(null)
-	const [postCnt, setPostCnt] = useState(null)
-	const [isPostLoaded, setIsPostLoaded] = useState(false)
+	const [page, setPage] = useState(0)
+	const { isLoading, error, posts } = usePostFetch(page)
+	const [boardContainerList, setBoardContainerList] = useState([])
 
 	const { state } = useLocation()
 	const boardParam = state?.boardParam
 
 	useEffect(() => {setBoard(boardParam)}, [])
 
-	useEffect(() => {
-		if(!board) {
-			getDocs(query(collectionGroup(db , "Posts"), orderBy("timeStamp", "desc"), limit(10)))
-				.then((querySnapshot) => {
-					setPosts(
-						querySnapshot.docs.map((docSnapshot) => {
-							const { user, title, board, timeStamp, thumbnail } = docSnapshot.data()
-							return {
-								id: docSnapshot.id,
-								timeStamp: timeStamp.toDate(),
-								board,
-								title,
-								user,
-								thumbnail
-							}
-						})
-					)
-				})
-		} else {
-			getDocs(query(collection(db, `Boards/${board.id}/Posts`), orderBy("timeStamp", "desc"), limit(10)))
-				.then((querySnapshot) => {
-					setPosts(
-						querySnapshot.docs.map((docSnapshot) => {
-							const { user, title, board, timeStamp, thumbnail } = docSnapshot.data()
-							return {
-								id: docSnapshot.id,
-								timeStamp: timeStamp.toDate(),
-								board,
-								title,
-								user,
-								thumbnail
-							}
-						})
-					)
-				})
-		}
-	}, [board])
+	const dummyList = Array.apply(null, Array(5)).map((_, i) => <BoardEntry key={i} isDummy={true} postInfo={undefined}/>)
+	
 
 	useEffect(() => {
-		if(posts != null) {
-			console.log(posts)
-			setIsPostLoaded(true)
+		let tmpList = []
+		for (let i = 0; i < posts.length; i += 5) {
+			console.log("test")
+			const boardEntryList = posts?.slice(i, i + 5).map((x, i) => <BoardEntry key={i} isDummy={false} postInfo={x} />)
+			tmpList.push(
+				<div key={i} className="BoardHorizontalContainer">
+					{boardEntryList}
+				</div>
+			)
 		}
+		setBoardContainerList(tmpList)
 	}, [posts])
-
-	const dummyList = Array.apply(null, Array(5)).map(_ => <BoardEntry isDummy={true} postInfo={undefined}/>)
-
-	const firstList = posts?.slice(0, 5).map(x => <BoardEntry isDummy={false} postInfo={x} />)
-	const secondList = posts?.slice(5).map(x => <BoardEntry isDummy={false} postInfo={x} />)
 
 	const navigate = useNavigate()
 
@@ -77,13 +45,12 @@ const BoardPage = () => {
 				<div onClick={() => navigate("../newpost")}>
 					글쓰기
 				</div>
+				<div onClick={() => setPage(page + 1)}>
+					tmp
+				</div>
 			</div>
-			<div className="BoardHorizontalContainer">
-				{isPostLoaded ? firstList : dummyList}
-			</div>
-			<div className="BoardHorizontalContainer">
-				{isPostLoaded ? secondList : dummyList}
-			</div>
+
+			{boardContainerList}
 		</div>
 	)
 }

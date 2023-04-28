@@ -1,22 +1,30 @@
-import { Timestamp, collectionGroup, getDocs, limit, orderBy, query, startAt } from "firebase/firestore"
+import { Timestamp, collectionGroup, getDocs, limit, orderBy, query, startAfter, startAt } from "firebase/firestore"
 import React, { useCallback, useEffect, useState } from "react"
 import db from "../src/db"
 
 const usePostFetch = (page) => {
     
 	const [isLoading, setIsLoading] = useState(true)
-	const [postList, setPostList] = useState([])
+	const [posts, setPosts] = useState([])
 	const [error, setError] = useState(false)
+	const [lastDoc, setLastDoc] = useState(null)
 
 	const sendQuery = useCallback(async () => {
-		const myQuery = query(collectionGroup(
-			db, 
-			"Posts", 
-			orderBy("timeStamp", "desc"), 
-			startAt(page * 10), 
-			limit(10)
-		))
+		const myQuery = lastDoc ? 
+			query(
+				collectionGroup(db , "Posts"), 
+				orderBy("timeStamp", "desc"), 
+				startAfter(lastDoc),
+				limit(10)
+			) : 
+			query(
+				collectionGroup(db , "Posts"), 
+				orderBy("timeStamp", "desc"), 
+				limit(10)
+			)
+		
 		await setIsLoading(true)
+
 		try {
 			const querySnapshot = await getDocs(myQuery)
 			const newPosts = querySnapshot.docs.map((docSnapshot) => {
@@ -31,7 +39,8 @@ const usePostFetch = (page) => {
 				}
 			})
     
-			await setPostList([...postList, ...newPosts])
+			await setPosts([...posts, ...newPosts])
+			await setLastDoc(querySnapshot.docs[9])
 			setError(false)
 		} catch (e) {
 			console.log(e)
@@ -43,10 +52,11 @@ const usePostFetch = (page) => {
 	}, [page])
 
 	useEffect(() => {
+		console.log(lastDoc)
 		sendQuery()
 	}, [page])
 
-	return { isLoading, error, postList }
+	return { isLoading, error, posts }
 }
 
 export default usePostFetch
