@@ -39,12 +39,18 @@ const NewPostPage = () => {
 			alert("본문을 입력해주세요")
 			return 
 		}
+
+		const parser = new DOMParser()
+		const parsedDoc = parser.parseFromString(content, "text/html")
+		const thumbnail = parsedDoc.getElementsByTagName("img")[0].src
+
 		const userPostRef = collection(db, `Users/${uid}/MyPosts`)
 		const postRef = collection(db, `Boards/${board.value}/Posts`)
 		addDoc(postRef, {
 			board,
 			title,
 			content,
+			thumbnail,
 			user: { uid, username },
 			timeStamp: Timestamp.now()
 		})
