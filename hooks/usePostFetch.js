@@ -20,7 +20,7 @@ const usePostFetch = (page) => {
 			query(
 				collectionGroup(db , "Posts"), 
 				orderBy("timeStamp", "desc"), 
-				limit(10)
+				// limit(10)
 			)
 		
 		await setIsLoading(true)
