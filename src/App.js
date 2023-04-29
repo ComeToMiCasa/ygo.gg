@@ -14,7 +14,7 @@ import { collection, getDocs } from "firebase/firestore"
 import db from "./db"
 import NewPostPage from "../pages/newPostPage"
 import BoardPage from "../pages/boardPage2"
-import PostPage from "../pages/postPage"
+import PostPage from "../pages/postPage2"
 import PreparePage from "../pages/preparePage"
 
 const App = () => {
