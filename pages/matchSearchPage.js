@@ -82,7 +82,7 @@ const MatchPage = () => {
 			display: "flex",
 			flexDirection: "column",
 			alignItems: "center",
-			marginTop: 80
+			marginTop: 60
 		}}>
 			<SearchBar 
 				setMyDeck={setMyDeck} 
@@ -90,7 +90,7 @@ const MatchPage = () => {
 				onSubmit={handleSubmit}
 			/>
 			{matches.length ? (
-				<div>
+				<div className="MatchListContainer">
 					{matchList}
 				</div>) : (
 				<div style={{
@@ -120,19 +120,10 @@ const MatchEntry = ({deck1, deck2, games, matchWin}) => {
 	)
 
 	return (
-		<div style={{
-			width: 1000,
-			height: 50,
-			borderBottom: "solid black .5px",
-			backgroundColor: "white",
-			display: "flex",
-			justifyContent: "space-between",
-			padding: 10,
-			boxSizing: "border-box",
-			alignItems: "center",
-			boxShadow: "2px 1px 1px gray "
-		}}>
+		<div className="MatchEntry">
+			친선전
 			<DeckComponent {...deck1}/>
+			vs
 			<DeckComponent {...deck2}/>
 			{gamesList} 
 			<div>
@@ -145,7 +136,7 @@ const MatchEntry = ({deck1, deck2, games, matchWin}) => {
 const DeckComponent = ({name}) => {
 	return (
 		<div style={{
-			width: 200,
+			width: 170,
 		}}>
 			{name}
 		</div>

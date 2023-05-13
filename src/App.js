@@ -13,8 +13,9 @@ import MatchPage from "../pages/matchSearchPage"
 import { collection, getDocs } from "firebase/firestore"
 import db from "./db"
 import NewPostPage from "../pages/newPostPage"
-import BoardPage from "../pages/boardPage"
-import PostPage from "../pages/postPage"
+import BoardPage from "../pages/boardPage2"
+import PostPage from "../pages/postPage2"
+import PreparePage from "../pages/preparePage"
 
 const App = () => {
 	const [username, setUsername] = useState("")
@@ -81,6 +82,7 @@ const App = () => {
 						<Route path="/newpost" element={<NewPostPage/>}/>
 						<Route path="/board" element={<BoardPage/>}/>
 						<Route path="/post" element={<PostPage/>} />
+						<Route path="/preparing" element={<PreparePage/>} />
 					</Routes>
 				</boardContext.Provider>
 			</deckContext.Provider>

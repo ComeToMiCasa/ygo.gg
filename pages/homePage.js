@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore"
+import { Link } from "react-router-dom"
 import db from "../src/db"
-import DeckRanking from "../components/deckRanking"
-import HotPostContainer from "../components/hotPostContainer"
+import "../styles/home.css"
+import DeckRankingContainer from "../components/deckRankingContainer"
 
 function Home() {
 	// eslint-disable-next-line no-unused-vars
@@ -20,7 +21,7 @@ function Home() {
 		const matchQuery = query(
 			deckRef,
 			orderBy("matchWinRate", "desc"),
-			limit(10)
+			limit(8)
 		)
 		Promise.all([getDocs(gameQuery), getDocs(matchQuery)])
 			.then(
@@ -46,24 +47,32 @@ function Home() {
 	}, [])
 
 	return (
-		<div style={{
-			display: "flex", 
-			width: 1300, 
-			marginLeft: "auto",
-			marginRight: "auto",
-			marginTop: "5%",
-			justifyContent: "space-between",
-		}}>
-			<div style={{
-				height: 650,
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "space-around",
-				alignItems: "center"
-			}}>
-				<DeckRanking name="OCG 티어 덱" decks={matchDecks}/>
+		<div>
+			<div className="HomeButtonContainer">
+				<HomeButton name="전적 검색" link="/match-search"/>
+				{/* <HomeButton name="승률 통계" link="/preparing"/> */}
+				<HomeButton name="티어 분석" link="/preparing"/>
+				<HomeButton name="강의 노트" link="/board"/>
+				<div style={{width: 220}}>
+					<Link to="/match">
+						<div className="StartButton">
+                    전적 등록하기
+						</div>
+					</Link>
+				</div>
 			</div>
-			<HotPostContainer/>
+			<DeckRankingContainer decks={matchDecks}/>
+		</div>
+	)
+}
+
+const HomeButton = ({ name, link }) => {
+
+	return (
+		<div className="HomeButton">
+			<Link to={link}>
+				{name}
+			</Link>
 		</div>
 	)
 }

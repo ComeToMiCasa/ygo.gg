@@ -1,0 +1,29 @@
+.Title {
+    
+    position: absolute;
+    width: 413px;
+    height: 112.73px;
+    left: 900px;
+    top: 180px;
+
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 113px;
+    /* identical to box height, or 188% */
+
+    display: flex;
+    align-items: center;
+
+    color: #000000;
+}
+
+.Paragraph {
+    position: absolute;
+    width: 413px;
+    left: 900px;
+    top: 270px;
+    margin-top: 50px;
+    font-size: 25px;
+    line-height: 35px;
+}

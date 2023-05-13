@@ -6,6 +6,8 @@ import UploadAdapter from "../src/upload"
 import db from "../src/db"
 import { addDoc, collection, Timestamp } from "firebase/firestore"
 import { boardContext, userContext } from "../src/context"
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 const NewPostPage = () => {
 	const editorConfig ={
@@ -25,6 +27,12 @@ const NewPostPage = () => {
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 
+	useEffect(() => {
+		setBoard(boards[0])
+	}, [boards])
+
+	const navigate = useNavigate()
+
 	const handleSubmit = (() => {
 		if(!board) {
 			alert("게시판을 선택해주세요")
@@ -36,12 +44,21 @@ const NewPostPage = () => {
 			alert("본문을 입력해주세요")
 			return 
 		}
+
+		console.log(board, title, content, thumbnail, uid)
+
+		const parser = new DOMParser()
+		const parsedDoc = parser.parseFromString(content, "text/html")
+		const thumbnail = parsedDoc.getElementsByTagName("img")[0].src
+
 		const userPostRef = collection(db, `Users/${uid}/MyPosts`)
-		const postRef = collection(db, `Boards/${board.value}/Posts`)
+		const postRef = collection(db, `Boards/${board.id}/Posts`)
+
 		addDoc(postRef, {
 			board,
 			title,
 			content,
+			thumbnail,
 			user: { uid, username },
 			timeStamp: Timestamp.now()
 		})
