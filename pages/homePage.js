@@ -49,8 +49,8 @@ function Home() {
 	return (
 		<div>
 			<div className="HomeButtonContainer">
-				{/* <HomeButton name="전적 검색" link="/match-search"/> */}
-				<HomeButton name="승률 통계" link="/preparing"/>
+				<HomeButton name="전적 검색" link="/match-search"/>
+				{/* <HomeButton name="승률 통계" link="/preparing"/> */}
 				<HomeButton name="티어 분석" link="/preparing"/>
 				<HomeButton name="강의 노트" link="/board"/>
 				<div style={{width: 220}}>

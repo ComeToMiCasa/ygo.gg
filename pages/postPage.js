@@ -17,10 +17,6 @@ const PostPage = () => {
 		})
 	}, [])
 
-	useEffect(() => {
-		console.log(data)
-	}, [data])
-
 	const navigate = useNavigate()
 
 	const handleBoardClick = () => {

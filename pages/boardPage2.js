@@ -51,11 +51,15 @@ const BoardPage = () => {
 	return (
 		<div className="BoardContainer">
 			<div className="BoardHeaderBar">
-				<div onClick={() => navigate("../newpost")}>
-					글쓰기
-				</div>
-				<div onClick={() => setPage(page + 1)}>
-					tmp
+				<div  
+					className="NewPostButtonContainer"
+				>
+					<div 
+						className="NewPostButton"
+						onClick={() => navigate("../newpost")}
+					>
+						글쓰기
+					</div>
 				</div>
 			</div>
 
@@ -74,7 +78,7 @@ const BoardEntry = ({isDummy, postInfo}) => {
 			className="BoardEntry"
 			onClick={() => navigate({
 				pathname: "../post",
-				search: `?id=${id}`
+				search: `?id=${id}&board=${board.id}`
 			})}
 		>
 			<div className="ThumbnailContainer">

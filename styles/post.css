@@ -34,7 +34,7 @@
 }
 
 .PostBoardContainer {
-    font-size: 25px;
+    /* font-size: 25px; */
     padding: 10px;
     border-bottom: 3px rgb(2, 52, 63) solid;
     cursor: pointer;
@@ -49,8 +49,8 @@
     align-items: center;
 }
 
-.PostTitle {
-    font-size: 20px;
+.PostTitleContainer {
+    font-size: 30px;
 }
 
 .PostTimeStamp {

@@ -7,6 +7,7 @@ import db from "../src/db"
 import { addDoc, collection, Timestamp } from "firebase/firestore"
 import { boardContext, userContext } from "../src/context"
 import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
 
 const NewPostPage = () => {
 	const editorConfig ={
@@ -26,6 +27,10 @@ const NewPostPage = () => {
 	const [title, setTitle] = useState("")
 	const [content, setContent] = useState("")
 
+	useEffect(() => {
+		setBoard(boards[0])
+	}, [boards])
+
 	const navigate = useNavigate()
 
 	const handleSubmit = (() => {
@@ -40,12 +45,15 @@ const NewPostPage = () => {
 			return 
 		}
 
+		console.log(board, title, content, thumbnail, uid)
+
 		const parser = new DOMParser()
 		const parsedDoc = parser.parseFromString(content, "text/html")
 		const thumbnail = parsedDoc.getElementsByTagName("img")[0].src
 
 		const userPostRef = collection(db, `Users/${uid}/MyPosts`)
-		const postRef = collection(db, `Boards/${board.value}/Posts`)
+		const postRef = collection(db, `Boards/${board.id}/Posts`)
+
 		addDoc(postRef, {
 			board,
 			title,

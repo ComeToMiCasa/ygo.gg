@@ -15,20 +15,21 @@ const TitleBar = ({boardList, title, onTitleChange, onBoardChange, onSubmit}) =>
 			marginBottom: 20,
 			justifyContent: "space-around"
 		}}>
-			<Select
+			{/* <Select
 				options={boardList}
 				placeholder="게시판"
 				styles={selectStyles}
 				onChange={(newValue) => onBoardChange(newValue)}
-			/>
+			/> */}
 			<div style={{
 				display: "flex",
 			}}>
 				<input
 					placeholder="제목"
 					style={{
-						fontSize: 16,
-						width: 800,
+						fontSize: 18,
+						width: 1105,
+						height: 35,
 						marginRight: 20,
 						border: "1px solid #ccc",
 						borderRadius: 4,
@@ -37,7 +38,7 @@ const TitleBar = ({boardList, title, onTitleChange, onBoardChange, onSubmit}) =>
 					onChange={onTitleChange}
 					value={title}
 				/>
-				<button style={{width: 80, fontSize: 16 }} onClick={onSubmit}>등록</button>
+				<button style={{width: 60, fontSize: 18 }} onClick={onSubmit}>등록</button>
 			</div>
 			
 		</div>

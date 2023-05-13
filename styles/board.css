@@ -47,3 +47,28 @@
     margin-left: 15px;
     font-size: 13px;
 }
+
+.NewPostButtonContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 10px;
+}
+
+.NewPostButton {
+    background-color: white;
+    /* color: white; */
+    color: black;
+    font-size: 18px;
+    padding-right: 12px;
+    padding-left: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    border: gray solid 1px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+}
+
+.NewPostButton:hover {
+    cursor: pointer;
+}
